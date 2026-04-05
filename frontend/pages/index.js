@@ -5,7 +5,7 @@ import Cookies from 'js-cookie';
 
 const HERO_BG = {
   background: 'linear-gradient(135deg, #FFF9E6 0%, #E8F5E9 50%, #E3F2FD 100%)',
-  position: 'relative' as const,
+  position: 'relative',
   overflow: 'hidden',
 };
 
