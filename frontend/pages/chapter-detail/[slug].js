@@ -181,33 +181,41 @@ export default function ChapterDetailPage() {
                   {section.subsections && section.subsections.map((sub, subIdx) => (
                     <div key={subIdx} style={{ marginLeft: '1rem', marginBottom: '1rem', padding: '0.75rem', background: '#f9f9f9', borderRadius: 4 }}>
                       <h3 style={{ fontSize: '1rem', color: '#333', marginBottom: '0.5rem', fontWeight: 600 }}>
-                        {sub.name} 
-                        <span style={{ fontSize: '0.85rem', color: '#666', marginLeft: '0.5rem' }}>
-                          ({sub.telugu})
-                        </span>
+                        {sub.name || sub.title} 
+                        {sub.telugu && (
+                          <span style={{ fontSize: '0.85rem', color: '#666', marginLeft: '0.5rem' }}>
+                            ({sub.telugu})
+                          </span>
+                        )}
                       </h3>
                       
                       <p style={{ color: '#444', fontSize: '0.9rem', marginBottom: '0.5rem' }}>
-                        {sub.definition}
+                        {sub.definition || sub.description}
                       </p>
                       
-                      <div style={{ background: '#fffde7', padding: '0.5rem', borderRadius: 4, marginBottom: '0.5rem', fontSize: '0.85rem', color: '#333' }}>
-                        <strong>Telugu: </strong> {sub.telugu_definition}
-                      </div>
+                      {sub.telugu_definition && (
+                        <div style={{ background: '#fffde7', padding: '0.5rem', borderRadius: 4, marginBottom: '0.5rem', fontSize: '0.85rem', color: '#333' }}>
+                          <strong>Telugu: </strong> {sub.telugu_definition}
+                        </div>
+                      )}
 
-                      <div style={{ marginTop: '0.5rem' }}>
-                        <strong style={{ fontSize: '0.85rem', color: '#1a5d1a' }}>Properties: </strong>
-                        <span style={{ fontSize: '0.85rem', color: '#444' }}>
-                          {sub.properties?.join(", ")}
-                        </span>
-                      </div>
+                      {sub.properties && (
+                        <div style={{ marginTop: '0.5rem' }}>
+                          <strong style={{ fontSize: '0.85rem', color: '#1a5d1a' }}>Properties: </strong>
+                          <span style={{ fontSize: '0.85rem', color: '#444' }}>
+                            {Array.isArray(sub.properties) ? sub.properties.join(", ") : sub.properties}
+                          </span>
+                        </div>
+                      )}
 
-                      <div style={{ marginTop: '0.5rem' }}>
-                        <strong style={{ fontSize: '0.85rem', color: '#1a5d1a' }}>Examples: </strong>
-                        <span style={{ fontSize: '0.85rem', color: '#444' }}>
-                          {sub.examples_telugu?.join(", ")}
-                        </span>
-                      </div>
+                      {(sub.examples_telugu || sub.example) && (
+                        <div style={{ marginTop: '0.5rem' }}>
+                          <strong style={{ fontSize: '0.85rem', color: '#1a5d1a' }}>Examples: </strong>
+                          <span style={{ fontSize: '0.85rem', color: '#444' }}>
+                            {Array.isArray(sub.examples_telugu) ? sub.examples_telugu.join(", ") : sub.example}
+                          </span>
+                        </div>
+                      )}
 
                       <button
                         style={{
@@ -221,8 +229,9 @@ export default function ChapterDetailPage() {
                           fontSize: '0.85rem'
                         }}
                         onClick={() => {
-                          setSelectedTopic(sub.name);
-                          setAiExplanation(getAIExplanation(sub.name.toLowerCase().replace(/[^a-z]/g, '_')));
+                          const topicKey = (sub.name || sub.title || '').toLowerCase().replace(/[^a-z]/g, '_');
+                          setSelectedTopic(sub.name || sub.title);
+                          setAiExplanation(getAIExplanation(topicKey));
                           setShowTelugu(false);
                         }}
                       >
