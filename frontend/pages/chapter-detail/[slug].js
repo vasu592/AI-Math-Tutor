@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { useAuth } from '../../hooks/useAuth';
@@ -36,6 +36,34 @@ export default function ChapterDetailPage() {
   const [selectedTopic, setSelectedTopic] = useState(null);
   const [aiExplanation, setAiExplanation] = useState(null);
   const [showTelugu, setShowTelugu] = useState(false);
+  const [isSpeaking, setIsSpeaking] = useState(false);
+  const utteranceRef = useRef(null);
+
+  const speakText = (text, lang) => {
+    if (isSpeaking) {
+      window.speechSynthesis.cancel();
+      setIsSpeaking(false);
+      return;
+    }
+
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = lang === 'telugu' ? 'te-IN' : 'en-US';
+    utterance.rate = 0.9;
+    utterance.pitch = 1;
+    
+    utterance.onstart = () => setIsSpeaking(true);
+    utterance.onend = () => setIsSpeaking(false);
+    utterance.onerror = () => setIsSpeaking(false);
+    
+    utteranceRef.current = utterance;
+    window.speechSynthesis.speak(utterance);
+  };
+
+  useEffect(() => {
+    return () => {
+      window.speechSynthesis.cancel();
+    };
+  }, []);
 
   useEffect(() => {
     if (!slug || !student) return;
@@ -282,7 +310,7 @@ export default function ChapterDetailPage() {
             </button>
           </div>
 
-          <div style={{ marginBottom: '1rem' }}>
+          <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1rem', flexWrap: 'wrap' }}>
             <button 
               onClick={() => setShowTelugu(false)}
               style={{ 
@@ -309,6 +337,22 @@ export default function ChapterDetailPage() {
               }}
             >
               🇮🇳 Telugu
+            </button>
+            <button 
+              onClick={() => speakText(showTelugu ? aiExplanation.telugu : aiExplanation.english, showTelugu ? 'telugu' : 'english')}
+              style={{ 
+                background: isSpeaking ? '#f44336' : '#2196F3', 
+                color: '#fff',
+                border: 'none',
+                padding: '0.4rem 1rem',
+                borderRadius: '4px',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.3rem'
+              }}
+            >
+              {isSpeaking ? '⏹ Stop' : '🔊 Listen'}
             </button>
           </div>
 
