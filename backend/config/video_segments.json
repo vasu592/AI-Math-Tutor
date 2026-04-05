@@ -1,0 +1,23 @@
+{
+  "quadratic-equations": {
+    "standard_form": { "start": 0, "end": 85 },
+    "discriminant": { "start": 86, "end": 210 },
+    "completing_the_square": { "start": 211, "end": 380 },
+    "quadratic_formula": { "start": 381, "end": 520 }
+  },
+  "trigonometry": {
+    "sin_cos_tan": { "start": 0, "end": 120 },
+    "identities": { "start": 121, "end": 300 },
+    "applications": { "start": 301, "end": 480 }
+  },
+  "polynomials": {
+    "degree_and_terms": { "start": 0, "end": 90 },
+    "zeroes_of_polynomial": { "start": 91, "end": 200 },
+    "remainder_theorem": { "start": 201, "end": 320 }
+  },
+  "real-numbers": {
+    "euclid_division": { "start": 0, "end": 100 },
+    "fundamental_theorem": { "start": 101, "end": 220 },
+    "irrational_numbers": { "start": 221, "end": 350 }
+  }
+}

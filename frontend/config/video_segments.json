@@ -1,0 +1,13 @@
+{
+  "quadratic-equations": {
+    "standard-form": { "start": 0, "end": 85 },
+    "discriminant": { "start": 86, "end": 210 },
+    "completing-the-square": { "start": 211, "end": 380 },
+    "quadratic-formula": { "start": 381, "end": 520 }
+  },
+  "trigonometry": {
+    "sin-cos-tan": { "start": 0, "end": 120 },
+    "identities": { "start": 121, "end": 300 },
+    "applications": { "start": 301, "end": 480 }
+  }
+}
