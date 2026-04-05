@@ -31,10 +31,10 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="page-wrapper">
+    <div className="page-wrapper" style={{ background: 'linear-gradient(180deg, #FFF9E6 0%, #E8F5E9 50%, #E3F2FD 100%)', minHeight: '100vh' }}>
       <nav className="nav">
         <div className="container nav-inner">
-          <div className="nav-logo">⚡ Math<span>AI</span></div>
+          <div className="nav-logo" style={{ fontSize: '1.3rem' }}>🧮 Math<span style={{ color: 'var(--accent)' }}>Tutor</span></div>
           <div className="flex items-center gap-2">
             <span style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>
               Class {student.grade} · {student.name}
